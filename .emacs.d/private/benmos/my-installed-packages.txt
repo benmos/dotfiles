@@ -1,0 +1,11 @@
+This list is manually maintained by me:
+
+bind-key
+exec-path-from-shell
+
+
+magit
+haskell-mode
+nix-mode
+git-gutter-fringe
+helm
