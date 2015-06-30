@@ -1,2 +1,2 @@
-ln -sf ~/dotfiles/.emacs .emacs
-ln -sf ~/dotfiles/.emacs.d/private/benmos .emacs.d/private/benmos
+ln -sfn ~/dotfiles/.emacs .emacs
+ln -sfn ~/dotfiles/.emacs.d/private/benmos .emacs.d/private/benmos
