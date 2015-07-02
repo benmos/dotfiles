@@ -42,7 +42,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 100 :width normal :foundry "nil" :family "Monaco"))))
- '(linum ((t (:inherit shadow :height 0.9 :width condensed)))))
+ '(linum ((t (:inherit shadow :height 0.9 :width condensed))))
+ '(magit-diff-del ((t (:inherit diff-removed :foreground "dark red"))))
+ '(magit-diff-file-header ((t (:inherit diff-file-header :foreground "gray0"))))
+ '(magit-item-highlight ((t (:inherit secondary-selection :background "midnight blue")))))
 
 (put 'narrow-to-region 'disabled nil)
 (put 'upcase-region 'disabled nil)

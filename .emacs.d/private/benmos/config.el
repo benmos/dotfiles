@@ -3,7 +3,7 @@
 (setq savehist-mode nil)
 (setq ido-default-buffer-method (quote selected-window))
 (setq dired-recursive-copies 'top)              ; Allow dired 'C' to copy dirs
-(setq comint-buffer-maximum-size-lines 9999)
+(setq comint-buffer-maximum-size 9999)
 (setq helm-grep-default-command "ggrep -a -d skip %e -n%cH -e %p %f") ; Use 'ggrep'
 (setq projectile-completion-system 'helm-comp-read)
 (setq projectile-tags-command "hasktags -Re -f %s %s")
