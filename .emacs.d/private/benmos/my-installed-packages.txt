@@ -8,4 +8,9 @@ magit
 haskell-mode
 nix-mode
 git-gutter-fringe
+clojure-mode
 helm
+projectile
+helm-projectile
+helm-git-grep
+helm-ls-git

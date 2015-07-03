@@ -51,6 +51,21 @@
   (interactive)
   (if (> (length (frame-list)) 1) (mapcar 'delete-frame (cdr (frame-list)))) ; Delete all frames but one
   (let ((frame1 (selected-frame)) ;; Reuse old-frame as frame1
+        (frame2 (new-frame '((height . 113) (width . 260) (left . 840) (top . 0))))
+        )
+    (set-frame-height frame1 113)
+    (set-frame-width frame1 130)
+    (set-frame-position frame1 20 0)
+    (delete-other-windows)
+    (split-window-vertically)
+    (select-frame frame1))
+  )
+
+(defun benmos/bg3 ()
+  "Set the frame config to have three large frames"
+  (interactive)
+  (if (> (length (frame-list)) 1) (mapcar 'delete-frame (cdr (frame-list)))) ; Delete all frames but one
+  (let ((frame1 (selected-frame)) ;; Reuse old-frame as frame1
         (frame2 (new-frame '((height . 113) (width . 130) (left . 840) (top . 0))))
         (frame3 (new-frame '((height . 113) (width . 130) (left . 1660) (top . 0))))
         )

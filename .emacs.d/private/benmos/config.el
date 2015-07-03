@@ -1,14 +1,20 @@
 (setq scroll-margin 0)
-(setq helm-ff-skip-boring-files t)
 (setq savehist-mode nil)
 (setq ido-default-buffer-method (quote selected-window))
 (setq dired-recursive-copies 'top)              ; Allow dired 'C' to copy dirs
 (setq comint-buffer-maximum-size 9999)
-(setq helm-grep-default-command "ggrep -a -d skip %e -n%cH -e %p %f") ; Use 'ggrep'
 (setq projectile-completion-system 'helm-comp-read)
 (setq projectile-tags-command "hasktags -Re -f %s %s")
 (setq magit-last-seen-setup-instructions "1.4.0")
 (setq dired-use-ls-dired nil)
+
+(setq helm-grep-default-command "ggrep -a -d skip %e -n%cH -e %p %f") ; Use 'ggrep'
+(setq helm-ff-skip-boring-files t)
+(setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
+      helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
+      helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
+      helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
+      helm-ff-file-name-history-use-recentf t)
 
 ;(add-to-list 'dired-omit-extensions "hi")
 
@@ -57,6 +63,9 @@
 (add-hook 'dired-mode-hook   'benmos/show-dired-name-header)
 (add-hook 'find-file-hook    'benmos/show-buf-name-header)
 (add-hook 'haskell-mode-hook 'benmos/fixup-paragraph-regexps) ;; this is because Haskell mode imposes daft values for these....
+(add-hook 'haskell-mode-hook 'turn-on-haskell-decl-scan)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 (add-hook 'ibuffer-mode-hook (lambda () (ibuffer-switch-to-saved-filter-groups "default")))
 (add-hook 'shell-mode-hook
         #'(lambda ()
@@ -67,9 +76,12 @@
 ;
 ; Modes
 ;
-(tool-bar-mode -1)
+(require 'helm-config)
 (helm-mode 1)
-; (projectile-global-mode)
+(projectile-global-mode)
+(setq projectile-completion-system 'helm)
+(helm-projectile-on)
+(tool-bar-mode -1)
 
 ;
 ; Not needed with emacs-mac-port (IIUC):

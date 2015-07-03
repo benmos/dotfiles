@@ -12,8 +12,8 @@
 (bind-key* "C-M-o"   'other-frame) ; More useful than split-line because easier to type than C-x 5 2
 (bind-key* "C-c m"   'bury-buffer)
 (bind-key* "C-x C-b" 'ibuffer)
-(bind-key* "M-RET"   'magit-status)
-
+(bind-key* "C-M-m"   'magit-status)
+;(bind-key* "C-M-m"   'helm-browse-project) ; This is pretty useful too, but less so than 'magit-status
 
 
 ;
@@ -42,8 +42,13 @@
 (global-set-key (kbd "C-x b") 'helm-mini)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-h SPC") 'helm-all-mark-rings)
+(global-set-key (kbd "C-c g") 'helm-git-grep)
 ; (global-set-key (kbd "C-c h o") 'helm-occur)
 ; (global-set-key (kbd "C-c h g") 'helm-google-suggest)
+
+(eval-after-load 'helm '(define-key helm-map (kbd "C-c g") 'helm-git-grep-from-helm))
+
+(define-key isearch-mode-map (kbd "C-c g") 'helm-git-grep-from-isearch)
 
 (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
 (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
