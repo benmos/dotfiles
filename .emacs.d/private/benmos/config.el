@@ -7,6 +7,7 @@
 (setq projectile-tags-command "hasktags -Re -f %s %s")
 (setq magit-last-seen-setup-instructions "1.4.0")
 (setq dired-use-ls-dired nil)
+(setq inhibit-splash-screen t)
 
 (setq helm-grep-default-command "ggrep -a -d skip %e -n%cH -e %p %f") ; Use 'ggrep'
 (setq helm-ff-skip-boring-files t)
@@ -14,6 +15,7 @@
       helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
       helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
       helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
+      helm-split-window-default-side 'below
       helm-ff-file-name-history-use-recentf t
       helm-autoresize-min-height           10 ; 10% of frame height
       helm-autoresize-max-height           50 ; 50% of frame height
@@ -87,7 +89,7 @@
 (setq projectile-completion-system 'helm)
 (helm-projectile-on)
 (tool-bar-mode -1)
-(helm-autoresize-mode t)
+;(helm-autoresize-mode t)
 
 ;
 ; Not needed with emacs-mac-port (IIUC):

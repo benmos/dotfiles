@@ -9,10 +9,10 @@
   ;; (benmos/spawn-borders-shell "prod-radon-app-server" '("su - borders"))
   ;; (benmos/spawn-borders-shell "prod-radon-automation" '("su - borders"))
 
-  (benmos/spawn-remote "dev-propane-app-server.borde.rs"  "dev-propane-app-server-DB"  '("psql borders"))
-  (benmos/spawn-remote "dev-propane-automation.borde.rs"  "dev-propane-automation-DB"  '("psql scraper"))
-  (benmos/spawn-remote "prod-propane-app-server.borde.rs" "prod-propane-app-server-DB" '("psql borders"))
-  (benmos/spawn-remote "prod-propane-automation.borde.rs" "prod-propane-automation-DB" '("psql scraper"))
+  (benmos/spawn-remote "dev-propane-app-server.borde.rs"  "dev-app-DB-propane"   '("psql borders"))
+  (benmos/spawn-remote "dev-propane-automation.borde.rs"  "dev-auto-DB-propane"  '("psql scraper"))
+  (benmos/spawn-remote "prod-propane-app-server.borde.rs" "prod-app-DB-propane"  '("psql borders"))
+  (benmos/spawn-remote "prod-propane-automation.borde.rs" "prod-auto-DB-propane" '("psql scraper"))
 
   ;; (benmos/spawn-remote "prod-radon-app-server.borde.rs" "prod-radon-app-server-DB" '("psql borders"))
   ;; (benmos/spawn-remote "prod-radon-automation.borde.rs" "prod-radon-automation-DB" '("psql scraper"))
