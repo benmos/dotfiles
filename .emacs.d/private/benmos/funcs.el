@@ -1,3 +1,16 @@
+
+(defun benmos/tunnels ()
+  "Spawn SSH Tunnels"
+  (interactive)
+  (benmos/spawn-tunnel 3730 3729 "adminuser" "prod-propane-app-server.borde.rs" )
+  (benmos/spawn-tunnel 3729 3729 "adminuser" "dev-propane-app-server.borde.rs" )
+  (benmos/spawn-tunnel 5555 5555 "ops"       "ops.borde.rs" )
+  (benmos/spawn-tunnel 5556 5556 "ops"       "ops.borde.rs" )
+  (benmos/spawn-tunnel 8086 8086 "ops"       "ops.borde.rs")
+  (benmos/spawn-tunnel 8083 8083 "ops"       "ops.borde.rs")
+  (benmos/spawn-tunnel 5432 5432 "adminuser" "dev-propane-app-server.borde.rs")
+  )
+
 (defun benmos/borders ()
   "Spawn shells for all Borders EC2 VMs, Spawn Direds etc"
   (interactive)
@@ -38,6 +51,12 @@
       (shell buf)
       (process-send-string buf (concat "ssh " host "\n"))
       (mapcar (lambda (cmd) (process-send-string buf (concat cmd "\n"))) cmds)))
+
+(defun benmos/spawn-tunnel (localport remport user host)
+  "Create an ssh tunnel"
+    (let ((buf (get-buffer-create (generate-new-buffer-name (concat "*tunnel*" host ":" (number-to-string remport))))))
+      (shell buf)
+      (process-send-string buf (concat "ssh -i ~/.ssh/adminuser -L " (number-to-string localport) ":localhost:" (number-to-string remport) " " user "@" host "\n"))))
 
 (defun benmos/spawn-local (name dir cmds)
   "Create a local-shell"

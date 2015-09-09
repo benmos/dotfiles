@@ -15,6 +15,13 @@
    ;;                       monokai
    ;;                       zenburn)
 
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (add-to-list 'load-path "~/.emacs.d/private/benmos/")
 (load-library "enable-melpa.el")
 (load-library "from-spacemacs.el")
@@ -35,7 +42,10 @@
  '(ahs-idle-interval 0.25)
  '(ahs-idle-timer 0 t)
  '(ahs-inhibit-face-list nil)
- '(ring-bell-function (quote ignore) t))
+ '(package-selected-packages
+   (quote
+    (markdown-mode nix-mode magit helm-projectile helm-ls-git helm-git-grep haskell-mode git-gutter-fringe exec-path-from-shell clojure-mode bind-key)))
+ '(ring-bell-function (quote ignore)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
