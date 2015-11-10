@@ -2,13 +2,23 @@
 (defun benmos/tunnels ()
   "Spawn SSH Tunnels"
   (interactive)
-  (benmos/spawn-tunnel 3730 3729 "adminuser" "prod-propane-app-server.borde.rs" )
-  (benmos/spawn-tunnel 3729 3729 "adminuser" "dev-propane-app-server.borde.rs" )
-  (benmos/spawn-tunnel 5555 5555 "ops"       "ops.borde.rs" )
-  (benmos/spawn-tunnel 5556 5556 "ops"       "ops.borde.rs" )
-  (benmos/spawn-tunnel 8086 8086 "ops"       "ops.borde.rs")
-  (benmos/spawn-tunnel 8083 8083 "ops"       "ops.borde.rs")
-  (benmos/spawn-tunnel 5432 5432 "adminuser" "dev-propane-app-server.borde.rs")
+  ;; eg: "ssh -i ~/.ssh/adminuser -L 8083:localhost:8083 ops@ops.borde.rs"
+  (benmos/spawn-tunnel 3730 3729 "id_rsa" "ben_moseley" "prod-propane-app-server.borde.rs" )
+  (benmos/spawn-tunnel 3729 3729 "id_rsa" "ben_moseley" "dev-propane-app-server.borde.rs" )
+  (benmos/spawn-tunnel 5555 5555 "id_rsa" "ops"       "ops.borde.rs" )
+  (benmos/spawn-tunnel 5556 5556 "id_rsa" "ops"       "ops.borde.rs" )
+  (benmos/spawn-tunnel 8086 8086 "id_rsa" "ops"       "ops.borde.rs")
+  (benmos/spawn-tunnel 8083 8083 "id_rsa" "ops"       "ops.borde.rs")
+
+  (benmos/spawn-tunnel 7086 7086 "id_rsa" "ben_moseley" "prod-propane-automation.borde.rs")
+  (benmos/spawn-tunnel 7083 7083 "id_rsa" "ben_moseley" "prod-propane-automation.borde.rs")
+  (benmos/spawn-tunnel 8477 8477 "id_rsa" "ben_moseley" "prod-propane-automation.borde.rs") ;; Apache serving Grafana
+
+  (benmos/spawn-tunnel 6086 7086 "id_rsa" "ben_moseley" "dev-propane-automation.borde.rs")
+  (benmos/spawn-tunnel 6083 7083 "id_rsa" "ben_moseley" "dev-propane-automation.borde.rs")
+  ;; (benmos/spawn-tunnel 8476 8477 "ben_moseley" "dev-propane-automation.borde.rs") ;; Apache serving Grafana ; 'deploy/nix/ops/conf/borders-grafana-config.js' hard-codes the InfluxDB address to 'http://localhost:7086/db/Stats' ... ie Prod.
+
+  (benmos/spawn-tunnel 5432 5432 "id_rsa" "ben_moseley" "dev-propane-app-server.borde.rs")
   )
 
 (defun benmos/borders ()
@@ -35,6 +45,9 @@
   ;; (benmos/spawn-remote "-p 2222 bob@localhost" "bob-local2" '("cd /hostshare/server"))
   (benmos/spawn-remote "bob" "bob-local" '("cd /hostshare/server"))
   (benmos/spawn-remote "bob" "bob-local2" '("cd /hostshare/server"))
+  (benmos/spawn-remote "bob" "bob-local3" '("cd /hostshare/server"))
+  (benmos/spawn-remote "bob" "bob-tunnel1" '("ssh -i ~/.ssh/john_smith -L 5432:localhost:5432 john_smith@dev-propane-app-server.borde.rs"))
+  (benmos/spawn-remote "bob" "bob-tunnel2" '("ssh -i ~/.ssh/john_smith -L 5433:localhost:5432 john_smith@dev-propane-automation.borde.rs"))
   (benmos/spawn-local  "local-server" "/Users/ben/Startup2/code/server/" '())
   (benmos/spawn-local  "gen" "/Users/ben/Startup2/code/server/" '())
   (dired "/ssh:bob@localhost#2222:/")
@@ -52,11 +65,11 @@
       (process-send-string buf (concat "ssh " host "\n"))
       (mapcar (lambda (cmd) (process-send-string buf (concat cmd "\n"))) cmds)))
 
-(defun benmos/spawn-tunnel (localport remport user host)
+(defun benmos/spawn-tunnel (localport remport keyfilename user host)
   "Create an ssh tunnel"
     (let ((buf (get-buffer-create (generate-new-buffer-name (concat "*tunnel*" host ":" (number-to-string remport))))))
       (shell buf)
-      (process-send-string buf (concat "ssh -i ~/.ssh/adminuser -L " (number-to-string localport) ":localhost:" (number-to-string remport) " " user "@" host "\n"))))
+      (process-send-string buf (concat "ssh -i ~/.ssh/" keyfilename " -L " (number-to-string localport) ":localhost:" (number-to-string remport) " " user "@" host "\n"))))
 
 (defun benmos/spawn-local (name dir cmds)
   "Create a local-shell"
