@@ -1,4 +1,8 @@
 
+(defun benmos/filter (condp lst)
+    (delq nil
+          (mapcar (lambda (x) (and (funcall condp x) x)) lst)))
+
 (defun benmos/tunnels ()
   "Spawn SSH Tunnels"
   (interactive)
@@ -16,9 +20,17 @@
 
   (benmos/spawn-tunnel 6086 7086 "id_rsa" "ben_moseley" "dev-propane-automation.borde.rs")
   (benmos/spawn-tunnel 6083 7083 "id_rsa" "ben_moseley" "dev-propane-automation.borde.rs")
-  ;; (benmos/spawn-tunnel 8476 8477 "ben_moseley" "dev-propane-automation.borde.rs") ;; Apache serving Grafana ; 'deploy/nix/ops/conf/borders-grafana-config.js' hard-codes the InfluxDB address to 'http://localhost:7086/db/Stats' ... ie Prod.
+  ;; (benmos/spawn-tunnel 8476 8477 "id_rsa" "ben_moseley" "dev-propane-automation.borde.rs") ;; Apache serving Grafana ; 'deploy/nix/ops/conf/borders-grafana-config.js' hard-codes the InfluxDB address to 'http://localhost:7086/db/Stats' ... ie Prod.
 
   (benmos/spawn-tunnel 5432 5432 "id_rsa" "ben_moseley" "dev-propane-app-server.borde.rs")
+  )
+
+(defun benmos/kill-tunnels ()
+  "Kill All SSH Tunnels"
+  (interactive)
+  (let ((tbufs (benmos/filter (lambda (b) (string-match "\\*tunnel\\*" (buffer-name b))) (buffer-list)))
+	(kill-buffer-query-functions '()))
+    (mapcar 'kill-buffer tbufs))
   )
 
 (defun benmos/borders ()
