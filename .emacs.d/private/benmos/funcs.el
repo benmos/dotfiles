@@ -9,7 +9,7 @@
   ;; eg: "ssh -i ~/.ssh/adminuser -L 8083:localhost:8083 ops@ops.borde.rs"
   (benmos/spawn-tunnel 3730 3729 "id_rsa" "ben_moseley" "prod-propane-app-server.borde.rs" )
   (benmos/spawn-tunnel 3729 3729 "id_rsa" "ben_moseley" "dev-propane-app-server.borde.rs" )
-  (benmos/spawn-tunnel 5555 5555 "id_rsa" "ops"       "ops.borde.rs" )
+  (benmos/spawn-tunnel 5555 5555 "id_rsa" "ops"       "ops.borde.rs" ) ;; Riemann
   (benmos/spawn-tunnel 5556 5556 "id_rsa" "ops"       "ops.borde.rs" )
   (benmos/spawn-tunnel 8086 8086 "id_rsa" "ops"       "ops.borde.rs")
   (benmos/spawn-tunnel 8083 8083 "id_rsa" "ops"       "ops.borde.rs")

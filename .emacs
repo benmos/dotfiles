@@ -44,7 +44,7 @@
  '(ahs-inhibit-face-list nil)
  '(package-selected-packages
    (quote
-    (markdown-mode nix-mode magit helm-projectile helm-ls-git helm-git-grep haskell-mode git-gutter-fringe exec-path-from-shell clojure-mode bind-key)))
+    (swift-mode sml-mode noccur markdown-mode nix-mode magit helm-projectile helm-ls-git helm-git-grep haskell-mode git-gutter-fringe exec-path-from-shell clojure-mode bind-key)))
  '(ring-bell-function (quote ignore)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
