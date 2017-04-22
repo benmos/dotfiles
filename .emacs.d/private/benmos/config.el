@@ -8,6 +8,7 @@
 (setq magit-last-seen-setup-instructions "1.4.0")
 (setq dired-use-ls-dired nil)
 (setq inhibit-splash-screen t)
+(setq-default indent-tabs-mode nil)
 
 (setq helm-grep-default-command "ggrep -a -d skip %e -n%cH -e %p %f") ; Use 'ggrep'
 (setq helm-ff-skip-boring-files t)
@@ -100,6 +101,12 @@
 (setq mac-option-modifier 'alt)
 (setq mac-control-modifier 'control)
 (setq mac-command-modifier 'meta)
+
+; Show Tabs
+(defface extra-whitespace-face '((t (:background "pale green"))) "Used for tabs and such.")
+(defvar  my-extra-keywords     '(("\t" . 'extra-whitespace-face)))
+(add-hook 'emacs-lisp-mode-hook (lambda () (font-lock-add-keywords nil my-extra-keywords)))
+(add-hook 'nix-mode-hook        (lambda () (font-lock-add-keywords nil my-extra-keywords)))
 
 ;
 ; Other random...
